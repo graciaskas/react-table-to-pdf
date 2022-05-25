@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
 //import PDF modules 
 import jsPDF from "jspdf";
@@ -19,35 +19,37 @@ function Staff() {
     selectSec: "default",
   };
 
-  const dataTable = useRef(null);
 
-  const [values, setValues] = useState(initialValues);
+    const [values, setValues] = useState(initialValues);
 
-  const [list, setList] = useState([]);
+    const [list, setList] = useState([]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target; //input name should be same as object key
-    setValues({ ...values, [name]: value }); //It will set the individual value without removing the other values
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target; //input name should be same as object key
+        setValues({ ...values, [name]: value }); //It will set the individual value without removing the other values
+    };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    if (initialValues !== values) {
-      setList([...list,values]); //it will set new array of list
-      setValues(initialValues); //It will reset all state
-    }
-    exportToPDF()//
-  };
+        if (initialValues !== values) {
+        setList([...list,values]); //it will set new array of list
+        setValues(initialValues); //It will reset all state
+        }
+        exportToPDF()// export to PDF
+    };
 
-  const exportToPDF = () => { 
+    const exportToPDF = () => { 
         const unit = "pt";
         const size = "A4"; // Use A1, A2, A3 or A4
         const orientation = "portrait"; // portrait or landscape
 
         const marginLeft = 40;
+
+        //PDF Document
         const doc = new jsPDF(orientation, unit, size);
 
+        //Set Default fontSize of the Document
         doc.setFontSize(15);
 
         //Document title
@@ -171,7 +173,7 @@ function Staff() {
         </form>
         <div>
           {/* <form> */}
-          <table border="1" className="table table-striped mt-5 text-center" ref={dataTable}>
+          <table border="1" className="table table-striped mt-5 text-center">
             <thead>
               <tr>
                 <th>Name</th>
